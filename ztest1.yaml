@@ -13,7 +13,7 @@ resources:
           - "app1"
         vnets:
           - type: vnet
-            name: area59
+            name: area51
             tags:
               - "internal"
             subnets:
