@@ -1,0 +1,528 @@
+address_spaces:
+  - 10.64.0.0/12  # Pokrývá 16 bloků /16, celkem 1 048 576 IP adres
+
+resources:
+  - type: region
+    name: reg1
+    subscriptions:
+      - type: subscription
+        name: HUB1
+        tags:
+          - "hub"
+      - type: subscription
+        name: HUB2
+        tags:
+          - "hub"
+      - type: subscription
+        name: PRODA
+        tags:
+          - "prod"
+      - type: subscription
+        name: PRODARezerva
+        tags:
+          - "prod"
+          - "rezerva"
+      - type: subscription
+        name: PRODB
+        tags:
+          - "prod"
+      - type: subscription
+        name: PRODBRezerva
+        tags:
+          - "prod"
+          - "rezerva"
+      - type: subscription
+        name: PRODC
+        tags:
+          - "prod"
+      - type: subscription
+        name: PRODCRezerva
+        tags:
+          - "prod"
+          - "rezerva"
+      - type: subscription
+        name: PRODD
+        tags:
+          - "prod"
+      - type: subscription
+        name: PRODDRezerva
+        tags:
+          - "prod"
+          - "rezerva"
+      - type: subscription
+        name: DWH1
+        tags:
+          - "dwh"
+      - type: subscription
+        name: DWH2
+        tags:
+          - "dwh"
+      - type: subscription
+        name: DWH3
+        tags:
+          - "dwh"
+      - type: subscription
+        name: DWH4
+        tags:
+          - "dwh"
+      - type: subscription
+        name: Data_PROD
+        tags:
+          - "data"
+          - "prod"
+      - type: subscription
+        name: AI_PROD
+        tags:
+          - "ai"
+          - "prod"
+      - type: subscription
+        name: B2B
+        tags:
+          - "b2b"
+      - type: subscription
+        name: EntraService
+        tags:
+          - "entra"
+      - type: subscription
+        name: OCIHUB1
+        tags:
+          - "oci"
+          - "hub"
+      - type: subscription
+        name: OCIPRODA
+        tags:
+          - "oci"
+          - "prod"
+  - type: region
+    name: reg2
+    subscriptions:
+      - type: subscription
+        name: CIPA
+        tags:
+          - "cip"
+      - type: subscription
+        name: CIPATools
+        tags:
+          - "cip"
+          - "tools"
+      - type: subscription
+        name: CIPARezerva
+        tags:
+          - "cip"
+          - "rezerva"
+      - type: subscription
+        name: STG1
+        tags:
+          - "stg"
+      - type: subscription
+        name: TEST1
+        tags:
+          - "test"
+      - type: subscription
+        name: DEV1
+        tags:
+          - "dev"
+      - type: subscription
+        name: DEV3
+        tags:
+          - "dev"
+      - type: subscription
+        name: AI_TEST
+        tags:
+          - "ai"
+          - "test"
+      - type: subscription
+        name: Data_DEV
+        tags:
+          - "data"
+          - "dev"
+      - type: subscription
+        name: Data_TEST
+        tags:
+          - "data"
+          - "test"
+      - type: subscription
+        name: CIPB
+        tags:
+          - "cip"
+      - type: subscription
+        name: CIPBTools
+        tags:
+          - "cip"
+          - "tools"
+      - type: subscription
+        name: CIPBRezerva
+        tags:
+          - "cip"
+          - "rezerva"
+      - type: subscription
+        name: STG2
+        tags:
+          - "stg"
+      - type: subscription
+        name: TEST2
+        tags:
+          - "test"
+      - type: subscription
+        name: DEV2
+        tags:
+          - "dev"
+      - type: subscription
+        name: DEV4
+        tags:
+          - "dev"
+      - type: subscription
+        name: OCIHUB2
+        tags:
+          - "oci"
+          - "hub"
+      - type: subscription
+        name: OCISTG
+        tags:
+          - "oci"
+          - "stg"
+      - type: subscription
+        name: OCITEST
+        tags:
+          - "oci"
+          - "test"
+  - type: region
+    name: reg3
+    subscriptions:
+      - type: subscription
+        name: HUB3
+        tags:
+          - "hub"
+      - type: subscription
+        name: Rezerva1
+        tags:
+          - "rezerva"
+      - type: subscription
+        name: Rezerva2
+        tags:
+          - "rezerva"
+      - type: subscription
+        name: Rezerva3
+        tags:
+          - "rezerva"
+      - type: subscription
+        name: Rezerva4
+        tags:
+          - "rezerva"
+      - type: subscription
+        name: Rezerva5
+        tags:
+          - "rezerva"
+      - type: subscription
+        name: Rezerva6
+        tags:
+          - "rezerva"
+      - type: subscription
+        name: eVZP
+        tags:
+          - "evzp"
+      - type: subscription
+        name: eVZPRezerva
+        tags:
+          - "evzp"
+          - "rezerva"
+      - type: subscription
+        name: P2SIpPool
+        tags:
+          - "p2s"
+      - type: subscription
+        name: DalsiProjekty
+        tags:
+          - "projects"
+      - type: subscription
+        name: VnitřníSluzbyAKS
+        tags:
+          - "aks"
+      - type: subscription
+        name: B2Brezerva
+        tags:
+          - "b2b"
+          - "rezerva"
+      - type: subscription
+        name: Build_release_machine
+        tags:
+          - "build"
+      - type: subscription
+        name: OCIHUB3
+        tags:
+          - "oci"
+          - "hub"
+      - type: subscription
+        name: OCICIPA
+        tags:
+          - "oci"
+          - "cip"
+      - type: subscription
+        name: OCICIPToolsA
+        tags:
+          - "oci"
+          - "tools"
+      - type: subscription
+        name: OCIDEV
+        tags:
+          - "oci"
+          - "dev"
+      - type: subscription
+        name: OCIDWH
+        tags:
+          - "oci"
+          - "dwh"
+      - type: subscription
+        name: OCIData
+        tags:
+          - "oci"
+          - "data"
+      - type: subscription
+        name: OCIB2B
+        tags:
+          - "oci"
+          - "b2b"
+      - type: subscription
+        name: Rezerva7
+        tags:
+          - "rezerva"
+  - type: region
+    name: reg4
+    subscriptions:
+      - type: subscription
+        name: vwan-reg4
+        tags:
+          - "vwan"
+        vnets:
+          - type: vnet
+            name: vzp-vwan-reg4-vnet
+            tags:
+              - "core"
+            subnets:
+              - type: subnet
+                name: GatewaySubnet
+                tags:
+                  - "gateway"
+              - type: subnet
+                name: AzureFirewallSubnet
+                tags:
+                  - "firewall"
+              - type: subnet
+                name: AzureBastionSubnet
+                tags:
+                  - "bastion"
+
+addressing:
+  default:
+    region: equal
+    subscription: equal
+    vnet: equal
+    subnet: equal
+  specific:
+    - type: region
+      name: reg1
+      size: /14
+    - type: region
+      name: reg2
+      size: /14
+    - type: region
+      name: reg3
+      size: /14
+    - type: region
+      name: reg4
+      size: /14
+    - type: subscription
+      name: HUB1
+      size: /22
+    - type: subscription
+      name: HUB2
+      size: /22
+    - type: subscription
+      name: PRODA
+      size: /18
+    - type: subscription
+      name: PRODARezerva
+      size: /18
+    - type: subscription
+      name: PRODB
+      size: /18
+    - type: subscription
+      name: PRODBRezerva
+      size: /18
+    - type: subscription
+      name: PRODC
+      size: /19
+    - type: subscription
+      name: PRODCRezerva
+      size: /20
+    - type: subscription
+      name: PRODD
+      size: /19
+    - type: subscription
+      name: PRODDRezerva
+      size: /20
+    - type: subscription
+      name: DWH1
+      size: /21
+    - type: subscription
+      name: DWH2
+      size: /21
+    - type: subscription
+      name: DWH3
+      size: /21
+    - type: subscription
+      name: DWH4
+      size: /21
+    - type: subscription
+      name: Data_PROD
+      size: /21
+    - type: subscription
+      name: AI_PROD
+      size: /21
+    - type: subscription
+      name: B2B
+      size: /22
+    - type: subscription
+      name: EntraService
+      size: /22
+    - type: subscription
+      name: OCIHUB1
+      size: /22
+    - type: subscription
+      name: OCIPRODA
+      size: /18
+    - type: subscription
+      name: CIPA
+      size: /21
+    - type: subscription
+      name: CIPATools
+      size: /23
+    - type: subscription
+      name: CIPARezerva
+      size: /21
+    - type: subscription
+      name: STG1
+      size: /21
+    - type: subscription
+      name: TEST1
+      size: /21
+    - type: subscription
+      name: DEV1
+      size: /21
+    - type: subscription
+      name: DEV3
+      size: /21
+    - type: subscription
+      name: AI_TEST
+      size: /21
+    - type: subscription
+      name: Data_DEV
+      size: /22
+    - type: subscription
+      name: Data_TEST
+      size: /22
+    - type: subscription
+      name: CIPB
+      size: /21
+    - type: subscription
+      name: CIPBTools
+      size: /23
+    - type: subscription
+      name: CIPBRezerva
+      size: /21
+    - type: subscription
+      name: STG2
+      size: /21
+    - type: subscription
+      name: TEST2
+      size: /21
+    - type: subscription
+      name: DEV2
+      size: /21
+    - type: subscription
+      name: DEV4
+      size: /21
+    - type: subscription
+      name: OCIHUB2
+      size: /22
+    - type: subscription
+      name: OCISTG
+      size: /21
+    - type: subscription
+      name: OCITEST
+      size: /21
+    - type: subscription
+      name: HUB3
+      size: /22
+    - type: subscription
+      name: Rezerva1
+      size: /22
+    - type: subscription
+      name: Rezerva2
+      size: /22
+    - type: subscription
+      name: Rezerva3
+      size: /17
+    - type: subscription
+      name: Rezerva4
+      size: /21
+    - type: subscription
+      name: Rezerva5
+      size: /22
+    - type: subscription
+      name: Rezerva6
+      size: /23
+    - type: subscription
+      name: eVZP
+      size: /21
+    - type: subscription
+      name: eVZPRezerva
+      size: /22
+    - type: subscription
+      name: P2SIpPool
+      size: /22
+    - type: subscription
+      name: DalsiProjekty
+      size: /20
+    - type: subscription
+      name: VnitřníSluzbyAKS
+      size: /19
+    - type: subscription
+      name: B2Brezerva
+      size: /22
+    - type: subscription
+      name: Build_release_machine
+      size: /21
+    - type: subscription
+      name: OCIHUB3
+      size: /22
+    - type: subscription
+      name: OCICIPA
+      size: /21
+    - type: subscription
+      name: OCICIPToolsA
+      size: /23
+    - type: subscription
+      name: OCIDEV
+      size: /21
+    - type: subscription
+      name: OCIDWH
+      size: /21
+    - type: subscription
+      name: OCIData
+      size: /22
+    - type: subscription
+      name: OCIB2B
+      size: /22
+    - type: subscription
+      name: Rezerva7
+      size: /17
+    - type: subnet
+      name: GatewaySubnet
+      size: /24
+    - type: subnet
+      name: AzureFirewallSubnet
+      size: /24
+    - type: subnet
+      name: AzureBastionSubnet
+      size: /24
