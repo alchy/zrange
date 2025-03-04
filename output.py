@@ -6,34 +6,41 @@ import ipaddress
 
 def generate_markdown_table(allocations, output_path):
     """
-    Vygeneruje Markdown soubor s přidělenými IP rozsahy ve formátu hierarchické tabulky s tagy a rozsahem (od-do).
+    Vygeneruje Markdown soubor s hierarchicky odsazenými IP rozsahy ve formátu tabulky s tagy a rozsahem (od-do).
     """
     with open(output_path, 'w', encoding='utf-8') as file:
         file.write("# Přidělené IP rozsahy\n\n")
-        file.write("| Typ       | Název      | Nadřazený     | Rozsah (CIDR)      | Rozsah (od-do)         | Tagy            |\n")
-        file.write("|-----------|------------|---------------|--------------------|------------------------|-----------------|\n")
+        file.write("| Typ       | Název             | Nadřazený     | Rozsah (CIDR)      | Rozsah (od-do)         | Tagy            |\n")
+        file.write("|-----------|-------------------|---------------|--------------------|------------------------|-----------------|\n")
         for allocation in allocations:
-            write_allocation_table(file, allocation, parent_name=None)
+            write_allocation_table(file, allocation, parent_name=None, level=0)
 
-def write_allocation_table(file, allocation, parent_name):
+def write_allocation_table(file, allocation, parent_name, level):
     """
-    Rekurzivně zapisuje alokaci do tabulky s informací o nadřazeném prvku, tagy a rozsahem (od-do).
+    Rekurzivně zapisuje alokaci do tabulky s hierarchickým odsazením, tagy a rozsahem (od-do).
+    
+    Args:
+        file: Otevřený soubor pro zápis.
+        allocation: Slovník s informacemi o alokaci.
+        parent_name: Jméno nadřazeného prvku (nebo None).
+        level: Úroveň hierarchie (pro odsazení).
     """
+    indent = "  " * level  # Odsazení dvěma mezerami na úroveň
     parent_display = parent_name if parent_name else "-"
     tags_display = ", ".join(allocation['tags']) if allocation['tags'] else "-"
     net = ipaddress.ip_network(allocation['range'], strict=False)
     ip_start = str(net.network_address)
     ip_end = str(net.broadcast_address)
-    file.write(f"| {allocation['type'].capitalize()} | {allocation['name']} | {parent_display} | {allocation['range']} | {ip_start} - {ip_end} | {tags_display} |\n")
+    file.write(f"| {allocation['type'].capitalize()} | {indent}{allocation['name']} | {parent_display} | {allocation['range']} | {ip_start} - {ip_end} | {tags_display} |\n")
     if 'subscriptions' in allocation:
         for sub in allocation['subscriptions']:
-            write_allocation_table(file, sub, allocation['name'])
+            write_allocation_table(file, sub, allocation['name'], level + 1)
     if 'vnets' in allocation:
         for vnet in allocation['vnets']:
-            write_allocation_table(file, vnet, allocation['name'])
+            write_allocation_table(file, vnet, allocation['name'], level + 1)
     if 'subnets' in allocation:
         for subnet in allocation['subnets']:
-            write_allocation_table(file, subnet, allocation['name'])
+            write_allocation_table(file, subnet, allocation['name'], level + 1)
 
 def print_to_console(allocations):
     """
