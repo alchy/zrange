@@ -1,7 +1,7 @@
 # IP Address Segmentation Helper for Azure
 
 ## Popis
-Tento nástroj slouží k segmentaci IP adresního prostoru v Azure prostředí. Na základě vstupní YAML konfigurace přiděluje IP adresy datacentrům, subskripcím, virtuálním sítím (VNet) a podsítím (subnet). Výstup je generován jak do Markdown souboru, tak na konzoli.
+Tento nástroj slouží k segmentaci IP adresního prostoru a měl by zjednodušit práci při přidělování IP rozsahů na úrovni jednotlivých Azure prostředí. Na základě vstupní YAML konfigurace přiděluje IP adresy datacentrům, subskripcím, virtuálním sítím (VNet) a podsítím (subnet). Výstup je generován jak do Markdown souboru, tak na konzoli.
 
 ## Struktura projektu
 - `config.py`: Načítání a validace YAML konfigurace.
