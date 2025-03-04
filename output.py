@@ -1,38 +1,3 @@
-"""
-output.py - Generování výstupu do Markdownu a na konzoli.
-"""
-
-import ipaddress
-
-def generate_markdown(allocations, output_path):
-    """
-    Vygeneruje Markdown soubor s přidělenými IP rozsahy ve formátu seznamu (bez tagů).
-    """
-    with open(output_path, 'w', encoding='utf-8') as file:
-        file.write("# Přidělené IP rozsahy\n\n")
-        for allocation in allocations:
-            write_allocation(file, allocation, level=0)
-
-def write_allocation(file, allocation, level):
-    """
-    Rekurzivně zapisuje alokaci do souboru s správným odsazením (bez tagů), včetně rozsahu IP.
-    """
-    indent = "  " * level
-    net = ipaddress.ip_network(allocation['range'], strict=False)
-    ip_start = str(net.network_address)
-    ip_end = str(net.broadcast_address)
-    file.write(f"{indent}## {allocation['type'].capitalize()}: {allocation['name']}\n")
-    file.write(f"{indent}- Rozsah: {allocation['range']} ({ip_start} - {ip_end})\n")
-    if 'subscriptions' in allocation:
-        for sub in allocation['subscriptions']:
-            write_allocation(file, sub, level + 1)
-    if 'vnets' in allocation:
-        for vnet in allocation['vnets']:
-            write_allocation(file, vnet, level + 1)
-    if 'subnets' in allocation:
-        for subnet in allocation['subnets']:
-            write_allocation(file, subnet, level + 1)
-
 def generate_markdown_table(allocations, output_path):
     """
     Vygeneruje Markdown soubor s přidělenými IP rozsahy ve formátu hierarchické tabulky s tagy.
@@ -84,4 +49,3 @@ def print_allocation(allocation, level):
     if 'subnets' in allocation:
         for subnet in allocation['subnets']:
             print_allocation(subnet, level + 1)
-            

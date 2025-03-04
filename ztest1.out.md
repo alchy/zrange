@@ -1,22 +1,14 @@
 # Přidělené IP rozsahy
 
-## Region: eastus
-- Rozsah: 10.0.0.0/14 (10.0.0.0 - 10.3.255.255)
-  ## Subscription: subscr01
-  - Rozsah: 10.0.0.0/14 (10.0.0.0 - 10.3.255.255)
-    ## Vnet: area59
-    - Rozsah: 10.0.0.0/14 (10.0.0.0 - 10.3.255.255)
-      ## Subnet: project9
-      - Rozsah: 10.0.0.0/24 (10.0.0.0 - 10.0.0.255)
-      ## Subnet: zaphodshome
-      - Rozsah: 10.2.0.0/16 (10.2.0.0 - 10.2.255.255)
-## Region: westeu
-- Rozsah: 10.8.0.0/14 (10.8.0.0 - 10.11.255.255)
-  ## Subscription: subscr02
-  - Rozsah: 10.8.0.0/14 (10.8.0.0 - 10.11.255.255)
-    ## Vnet: galactichq
-    - Rozsah: 10.8.0.0/14 (10.8.0.0 - 10.11.255.255)
-      ## Subnet: vogonpoetry
-      - Rozsah: 10.8.0.0/15 (10.8.0.0 - 10.9.255.255)
-      ## Subnet: improbabledrive
-      - Rozsah: 10.10.0.0/16 (10.10.0.0 - 10.10.255.255)
+| Typ       | Název      | Nadřazený     | Rozsah         | Tagy            |
+|-----------|------------|---------------|----------------|-----------------|
+| Region | eastus | - | 10.0.0.0/14 | public, prod |
+| Subscription | subscr01 | eastus | 10.0.0.0/14 | app1 |
+| Vnet | area59 | subscr01 | 10.0.0.0/14 | internal |
+| Subnet | project9 | area59 | 10.0.0.0/24 | dmz |
+| Subnet | zaphodshome | area59 | 10.2.0.0/16 | backend |
+| Region | westeu | - | 10.8.0.0/14 | private |
+| Subscription | subscr02 | westeu | 10.8.0.0/14 | app2 |
+| Vnet | galactichq | subscr02 | 10.8.0.0/14 | external |
+| Subnet | vogonpoetry | galactichq | 10.8.0.0/15 | frontend |
+| Subnet | improbabledrive | galactichq | 10.10.0.0/16 | database |
