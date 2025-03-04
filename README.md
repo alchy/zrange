@@ -11,34 +11,6 @@ Tento nástroj slouží k segmentaci IP adresního prostoru v Azure prostředí.
 - `main.py`: Hlavní skript, který propojuje všechny moduly.
 
 ## Použití
-1. **Připravte konfiguraci**: Vytvořte YAML soubor (např. `config.yaml`) s definicí dostupných IP adres, hierarchie prostředků a požadavků na adresaci.
-   
-   Příklad:
-   ```yaml
-   address_spaces:
-     - 10.64.0.0/16
-   resources:
-     - type: region
-       name: we
-       subscriptions:
-         - type: subscription
-           name: subscr01
-           vnets:
-             - type: vnet
-               name: vnet1
-               subnets:
-                 - type: subnet
-                   name: subn1
-   addressing:
-     default:
-       region: equal
-       subscription: equal
-       vnet: equal
-       subnet: equal
-     specific:
-       - type: region
-         name: we
-         size: /16
-    ```
+YAML soubor (např. `ztest1.yaml`) s definicí dostupných IP adres, hierarchie prostředků a požadavků na adresaci.
 
 odkazy: [IP Calculator](https://www.calculator.net/ip-subnet-calculator.html)
