@@ -19,10 +19,11 @@ class IPManager:
         """
         self.available = [ipaddress.ip_network(space) for space in address_spaces]
         self.allocated = []
+        self.current_offset = 0  # Sleduje aktuální posun v prvním dostupném bloku
 
     def allocate(self, size):
         """
-        Přidělí podsíť požadované velikosti z dostupného prostoru.
+        Přidělí podsíť požadované velikosti z dostupného prostoru spojitě.
         
         Args:
             size (int): Požadovaná velikost masky (např. 24 pro /24).
@@ -33,17 +34,23 @@ class IPManager:
         Raises:
             ValueError: Pokud není dostatek IP adres.
         """
-        print(f"Allocating /{size} from available: {self.available}")
         if not self.available:
-            print("No available space - raising ValueError")
             raise ValueError("No available IP ranges")
         net = self.available[0]
-        try:
-            subnet = next(net.subnets(new_prefix=size))
-            self.allocated.append(subnet)
-            self.available = list(net.address_exclude(subnet))
-            print(f"Allocated {subnet}, remaining available: {self.available}")
-            return subnet
-        except StopIteration:
-            print("StopIteration: Could not allocate subnet of requested size")
-            raise ValueError("Could not allocate subnet of requested size")
+        total_addresses = net.num_addresses
+        addresses_needed = 2 ** (32 - size)
+
+        if self.current_offset + addresses_needed > total_addresses:
+            raise ValueError(f"Not enough space in current block {net} for /{size}")
+        
+        start_ip = int(net.network_address) + self.current_offset
+        subnet = ipaddress.ip_network(f"{ipaddress.ip_address(start_ip)}/{size}", strict=False)
+        self.allocated.append(subnet)
+        self.current_offset += addresses_needed
+
+        # Pokud je blok vyčerpán, přesuneme se na další
+        if self.current_offset >= total_addresses:
+            self.available.pop(0)
+            self.current_offset = 0
+        
+        return subnet

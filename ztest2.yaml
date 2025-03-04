@@ -6,7 +6,7 @@ resources:
     name: reg1
     subscriptions:
       - type: subscription
-        name: vwan-reg1
+        name: vwan1-reg1
         vnets:
           - type: vnet
             name: vzp-vwan-reg1-vnet
@@ -17,6 +17,18 @@ resources:
                 name: AzureFirewallSubnet
               - type: subnet
                 name: AzureBastionSubnet
+      - type: subscription
+        name: vwan2-reg1
+        vnets:
+          - type: vnet
+            name: vzp-vwan-reg1-vnet
+            subnets:
+              - type: subnet
+                name: GatewaySubnet
+              - type: subnet
+                name: AzureFirewallSubnet
+              - type: subnet
+                name: AzureBastionSubnet        
   - type: region
     name: reg2
     subscriptions:
@@ -64,23 +76,23 @@ resources:
                 name: AzureBastionSubnet
 addressing:
   default:
-    region: equal
+    region: /14
     subscription: equal
     vnet: equal
-    subnet: equal
+    subnet: /24
   specific:
     - type: region
       name: reg1
-      size: /22
+      size: /14
     - type: region
       name: reg2
-      size: /22
+      size: /14
     - type: region
       name: reg3
-      size: /22
+      size: /14
     - type: region
       name: reg4
-      size: /22
+      size: /14
     - type: subnet
       name: subn1
       size: /24

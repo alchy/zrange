@@ -10,8 +10,8 @@ def generate_markdown_table(allocations, output_path):
     """
     with open(output_path, 'w', encoding='utf-8') as file:
         file.write("# Přidělené IP rozsahy\n\n")
-        file.write("| Region | Subscription | Vnet      | Subnet         | Rozsah      | Tagy            |\n")
-        file.write("|--------|--------------|-----------|----------------|-------------|-----------------|\n")
+        file.write("| Region | Subscription | Vnet      | Subnet         | Rozsah             | Tagy            |\n")
+        file.write("|--------|--------------|-----------|----------------|--------------------|-----------------|\n")
         for allocation in allocations:
             write_allocation_table(file, allocation, level=0)
 
@@ -77,3 +77,4 @@ def print_allocation(allocation, level):
     if 'subnets' in allocation:
         for subnet in allocation['subnets']:
             print_allocation(subnet, level + 1)
+    
