@@ -30,7 +30,6 @@ def write_allocation_table(file, allocation, level):
     tags_display = ", ".join(allocation['tags']) if allocation['tags'] else "-"
     range_display = f"{allocation['range']} ({ip_start} - {ip_end})"
 
-    # Podle úrovně hierarchie vyplníme jen relevantní sloupce
     if level == 0:  # Region
         file.write(f"| {allocation['name']} |              |           |                | {range_display} | {tags_display} |\n")
     elif level == 1:  # Subscription
@@ -40,7 +39,6 @@ def write_allocation_table(file, allocation, level):
     elif level == 3:  # Subnet
         file.write(f"|        |              |           | {allocation['name']} | {range_display} | {tags_display} |\n")
 
-    # Rekurzivní volání pro podřízené položky
     if 'subscriptions' in allocation:
         for sub in allocation['subscriptions']:
             write_allocation_table(file, sub, level + 1)
@@ -77,4 +75,38 @@ def print_allocation(allocation, level):
     if 'subnets' in allocation:
         for subnet in allocation['subnets']:
             print_allocation(subnet, level + 1)
+
+def generate_tags_file(allocations, output_path):
+    """
+    Vygeneruje plaintextový soubor s tagy a přiřazenými rozsahy ve formátu 'tag-typ rozsah'.
     
+    Args:
+        allocations: Seznam alokací z allocator.py.
+        output_path: Cesta k výstupnímu souboru (např. 'ztest2.out.tags').
+    """
+    with open(output_path, 'w', encoding='utf-8') as file:
+        for allocation in allocations:
+            write_tags(file, allocation)
+
+def write_tags(file, allocation):
+    """
+    Rekurzivně zapisuje tagy a rozsahy do souboru s suffixem podle typu objektu.
+    
+    Args:
+        file: Otevřený soubor pro zápis.
+        allocation: Slovník s informacemi o alokaci.
+    """
+    if 'tags' in allocation and allocation['tags']:
+        obj_type = allocation['type']  # Typ objektu: region, subscription, vnet, subnet
+        for tag in allocation['tags']:
+            file.write(f"{tag}-{obj_type} {allocation['range']}\n")
+    
+    if 'subscriptions' in allocation:
+        for sub in allocation['subscriptions']:
+            write_tags(file, sub)
+    if 'vnets' in allocation:
+        for vnet in allocation['vnets']:
+            write_tags(file, vnet)
+    if 'subnets' in allocation:
+        for subnet in allocation['subnets']:
+            write_tags(file, subnet)

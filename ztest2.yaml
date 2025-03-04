@@ -13,6 +13,8 @@ resources:
             subnets:
               - type: subnet
                 name: GatewaySubnet
+                tags:
+                  - "gateway_v_reg1"
               - type: subnet
                 name: AzureFirewallSubnet
               - type: subnet

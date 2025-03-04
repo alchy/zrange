@@ -1,63 +1,141 @@
 address_spaces:
-  - "10.0.0.0/12"
+  - 10.64.0.0/12  # Pokrývá 16 bloků /16, celkem 1 048 576 IP adres
+
 resources:
   - type: region
-    name: eastus
+    name: reg1
     tags:
-      - "public"
       - "prod"
     subscriptions:
       - type: subscription
-        name: subscr01
+        name: vwan-reg1
         tags:
-          - "app1"
+          - "vwan"
         vnets:
           - type: vnet
-            name: area51
+            name: vzp-vwan-reg1-vnet
             tags:
-              - "internal"
+              - "core"
             subnets:
               - type: subnet
-                name: project9
+                name: GatewaySubnet
                 tags:
-                  - "dmz"
+                  - "gateway"
+                  - "critical"
               - type: subnet
-                name: zaphodshome
+                name: AzureFirewallSubnet
                 tags:
-                  - "backend"
+                  - "firewall"
+              - type: subnet
+                name: AzureBastionSubnet
+                tags:
+                  - "bastion"
   - type: region
-    name: westeu
+    name: reg2
     tags:
-      - "private"
+      - "prod"
     subscriptions:
       - type: subscription
-        name: subscr02
+        name: vwan-reg2
         tags:
-          - "app2"
+          - "vwan"
         vnets:
           - type: vnet
-            name: galactichq
+            name: vzp-vwan-reg2-vnet
             tags:
-              - "external"
+              - "core"
             subnets:
               - type: subnet
-                name: vogonpoetry
+                name: GatewaySubnet
                 tags:
-                  - "frontend"
+                  - "gateway"
               - type: subnet
-                name: improbabledrive
+                name: AzureFirewallSubnet
                 tags:
-                  - "database"
+                  - "firewall"
+              - type: subnet
+                name: AzureBastionSubnet
+                tags:
+                  - "bastion"
+  - type: region
+    name: reg3
+    tags:
+      - "prod"
+    subscriptions:
+      - type: subscription
+        name: vwan-reg3
+        tags:
+          - "vwan"
+        vnets:
+          - type: vnet
+            name: vzp-vwan-reg3-vnet
+            tags:
+              - "core"
+            subnets:
+              - type: subnet
+                name: GatewaySubnet
+                tags:
+                  - "gateway"
+              - type: subnet
+                name: AzureFirewallSubnet
+                tags:
+                  - "firewall"
+              - type: subnet
+                name: AzureBastionSubnet
+                tags:
+                  - "bastion"
+  - type: region
+    name: reg4
+    tags:
+      - "prod"
+    subscriptions:
+      - type: subscription
+        name: vwan-reg4
+        tags:
+          - "vwan"
+        vnets:
+          - type: vnet
+            name: vzp-vwan-reg4-vnet
+            tags:
+              - "core"
+            subnets:
+              - type: subnet
+                name: GatewaySubnet
+                tags:
+                  - "gateway"
+              - type: subnet
+                name: AzureFirewallSubnet
+                tags:
+                  - "firewall"
+              - type: subnet
+                name: AzureBastionSubnet
+                tags:
+                  - "bastion"
 addressing:
-  specific:
-    - type: region
-      name: eastus
-      size: "/14"
-    - type: subnet
-      name: project9
-      size: "/24"
   default:
     region: equal
     subscription: equal
     vnet: equal
     subnet: equal
+  specific:
+    - type: region
+      name: reg1
+      size: /14
+    - type: region
+      name: reg2
+      size: /14
+    - type: region
+      name: reg3
+      size: /14
+    - type: region
+      name: reg4
+      size: /14
+    - type: subnet
+      name: GatewaySubnet
+      size: /24
+    - type: subnet
+      name: AzureFirewallSubnet
+      size: /24
+    - type: subnet
+      name: AzureBastionSubnet
+      size: /24

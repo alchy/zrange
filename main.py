@@ -7,7 +7,7 @@ import sys
 from config import load_config
 from ip_manager import IPManager
 from allocator import allocate_resources
-from output import generate_markdown_table, print_to_console
+from output import generate_markdown_table, print_to_console, generate_tags_file
 
 def main(config_path, output_path=None):
     """
@@ -22,6 +22,8 @@ def main(config_path, output_path=None):
         output_path = f"{base}.out.md"
     
     generate_markdown_table(allocations, output_path)
+    tags_output_path = f"{os.path.splitext(output_path)[0]}.out.tags"  # Např. 'ztest2.out.tags'
+    generate_tags_file(allocations, tags_output_path)
     print_to_console(allocations)
 
 if __name__ == "__main__":
