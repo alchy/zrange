@@ -7,15 +7,11 @@ import sys
 from config import load_config
 from ip_manager import IPManager
 from allocator import allocate_resources
-from output import generate_markdown_table, print_to_console  # Použijeme obě funkce
+from output import generate_markdown_table, print_to_console
 
 def main(config_path, output_path=None):
     """
     Hlavní funkce programu pro segmentaci IP adres.
-    
-    Args:
-        config_path (str): Cesta k YAML konfiguračnímu souboru.
-        output_path (str, optional): Cesta k výstupnímu Markdown souboru. Pokud není zadána, použije se výchozí název.
     """
     config = load_config(config_path)
     ip_manager = IPManager(config['address_spaces'])
@@ -25,8 +21,8 @@ def main(config_path, output_path=None):
         base, _ = os.path.splitext(config_path)
         output_path = f"{base}.out.md"
     
-    generate_markdown_table(allocations, output_path)  # Tabulka s tagy do Markdownu
-    print_to_console(allocations)  # Běžný výpis na konzoli bez tagů
+    generate_markdown_table(allocations, output_path)
+    print_to_console(allocations)
 
 if __name__ == "__main__":
     if len(sys.argv) > 2:
