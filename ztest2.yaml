@@ -1,0 +1,45 @@
+address_spaces:
+  - 10.0.0.0/12  # Pokrývá 16 bloků /16, celkem 1 048 576 IP adres
+
+resources:
+  - type: region
+    name: eastus
+    subscriptions:
+      - type: subscription
+        name: subscr01
+        vnets:
+          - type: vnet
+            name: vnet1
+            subnets:
+              - type: subnet
+                name: subn1
+              - type: subnet
+                name: subn2
+  - type: region
+    name: westeu
+    subscriptions:
+      - type: subscription
+        name: subscr02
+        vnets:
+          - type: vnet
+            name: vnet2
+            subnets:
+              - type: subnet
+                name: subn3
+              - type: subnet
+                name: subn4
+
+addressing:
+  default:
+    region: equal
+    subscription: equal
+    vnet: equal
+    subnet: equal
+  specific:
+    - type: region
+      name: eastus
+      size: /14
+    - type: subnet
+      name: subn1
+      size: /24
+  

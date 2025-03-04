@@ -1,0 +1,64 @@
+address_spaces:
+  - "10.0.0.0/12"
+resources:
+  - type: region
+    name: eastus
+    tags:
+      - "public"
+      - "prod"
+    subscriptions:
+      - type: subscription
+        name: subscr01
+        tags:
+          - "app1"
+        vnets:
+          - type: vnet
+            name: area59
+            tags:
+              - "internal"
+            subnets:
+              - type: subnet
+                name: project9
+                tags:
+                  - "dmz"
+              - type: subnet
+                name: zaphodshome
+                tags:
+                  - "backend"
+  - type: region
+    name: westeu
+    tags:
+      - "private"
+    subscriptions:
+      - type: subscription
+        name: subscr02
+        tags:
+          - "app2"
+        vnets:
+          - type: vnet
+            name: galactichq
+            tags:
+              - "external"
+            subnets:
+              - type: subnet
+                name: vogonpoetry
+                tags:
+                  - "frontend"
+              - type: subnet
+                name: improbabledrive
+                tags:
+                  - "database"
+addressing:
+  specific:
+    - type: region
+      name: eastus
+      size: "/14"
+    - type: subnet
+      name: project9
+      size: "/24"
+  default:
+    region: equal
+    subscription: equal
+    vnet: equal
+    subnet: equal
+  
