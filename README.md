@@ -1,4 +1,4 @@
-# Some IP Address Segmentation Tool
+# IP Address Segmentation Tool Helper for Azure
 
 ## Popis
 Tento nástroj slouží k segmentaci IP adresního prostoru v Azure prostředí. Na základě vstupní YAML konfigurace přiděluje IP adresy datacentrům, subskripcím, virtuálním sítím (VNet) a podsítím (subnet). Výstup je generován jak do Markdown souboru, tak na konzoli.
