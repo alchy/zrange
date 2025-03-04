@@ -6,12 +6,12 @@ import ipaddress
 
 def generate_markdown_table(allocations, output_path):
     """
-    Vygeneruje Markdown soubor s hierarchicky oddělenými IP rozsahy ve formátu tabulky s tagy a rozsahem (od-do).
+    Vygeneruje Markdown soubor s hierarchicky oddělenými IP rozsahy ve formátu tabulky s tagy.
     """
     with open(output_path, 'w', encoding='utf-8') as file:
         file.write("# Přidělené IP rozsahy\n\n")
-        file.write("| Typ       | Název      | Nadřazený | Rozsah (CIDR) | Rozsah (od-do)      | Tagy            |\n")
-        file.write("|-----------|------------|-----------|---------------|---------------------|-----------------|\n")
+        file.write("| Region | Subscription | Vnet      | Subnet         | Rozsah      | Tagy            |\n")
+        file.write("|--------|--------------|-----------|----------------|-------------|-----------------|\n")
         for allocation in allocations:
             write_allocation_table(file, allocation, level=0)
 
@@ -28,29 +28,27 @@ def write_allocation_table(file, allocation, level):
     ip_start = str(net.network_address)
     ip_end = str(net.broadcast_address)
     tags_display = ", ".join(allocation['tags']) if allocation['tags'] else "-"
+    range_display = f"{allocation['range']} ({ip_start} - {ip_end})"
 
     # Podle úrovně hierarchie vyplníme jen relevantní sloupce
     if level == 0:  # Region
-        file.write(f"| {allocation['type'].capitalize()} | {allocation['name']} | - | {allocation['range']} | {ip_start} - {ip_end} | {tags_display} |\n")
+        file.write(f"| {allocation['name']} |              |           |                | {range_display} | {tags_display} |\n")
     elif level == 1:  # Subscription
-        file.write(f"|           | {allocation['name']} | {allocation['parent_name']} | {allocation['range']} | {ip_start} - {ip_end} | {tags_display} |\n")
+        file.write(f"|        | {allocation['name']} |           |                | {range_display} | {tags_display} |\n")
     elif level == 2:  # Vnet
-        file.write(f"|           |            | {allocation['name']} | {allocation['range']} | {ip_start} - {ip_end} | {tags_display} |\n")
+        file.write(f"|        |              | {allocation['name']} |                | {range_display} | {tags_display} |\n")
     elif level == 3:  # Subnet
-        file.write(f"|           |            |           | {allocation['name']} | {allocation['range']} | {ip_start} - {ip_end} | {tags_display} |\n")
+        file.write(f"|        |              |           | {allocation['name']} | {range_display} | {tags_display} |\n")
 
     # Rekurzivní volání pro podřízené položky
     if 'subscriptions' in allocation:
         for sub in allocation['subscriptions']:
-            sub['parent_name'] = allocation['name']  # Předání nadřazeného jména
             write_allocation_table(file, sub, level + 1)
     if 'vnets' in allocation:
         for vnet in allocation['vnets']:
-            vnet['parent_name'] = allocation['name']
             write_allocation_table(file, vnet, level + 1)
     if 'subnets' in allocation:
         for subnet in allocation['subnets']:
-            subnet['parent_name'] = allocation['name']
             write_allocation_table(file, subnet, level + 1)
 
 def print_to_console(allocations):
