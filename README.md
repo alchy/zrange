@@ -41,4 +41,4 @@ Tento nástroj slouží k segmentaci IP adresního prostoru v Azure prostředí.
          size: /16
     ```
 
-odkazy: (IP Calculator)[https://www.calculator.net/ip-subnet-calculator.html]
+odkazy: [IP Calculator](https://www.calculator.net/ip-subnet-calculator.html)
