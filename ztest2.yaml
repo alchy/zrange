@@ -1,34 +1,67 @@
 address_spaces:
-  - 10.0.0.0/12  # Pokrývá 16 bloků /16, celkem 1 048 576 IP adres
+  - 10.64.0.0/12  # Pokrývá 16 bloků /16, celkem 1 048 576 IP adres
 
 resources:
   - type: region
-    name: eastus
+    name: reg1
     subscriptions:
       - type: subscription
-        name: subscr01
+        name: vwan-reg1
         vnets:
           - type: vnet
-            name: vnet1
+            name: vzp-vwan-reg1-vnet
             subnets:
               - type: subnet
-                name: subn1
+                name: GatewaySubnet
               - type: subnet
-                name: subn2
+                name: AzureFirewallSubnet
+              - type: subnet
+                name: AzureBastionSubnet
   - type: region
-    name: westeu
+    name: reg2
     subscriptions:
       - type: subscription
-        name: subscr02
+        name: vwan-reg2
         vnets:
           - type: vnet
-            name: vnet2
+            name: vzp-vwan-reg2-vnet
             subnets:
               - type: subnet
-                name: subn3
+                name: GatewaySubnet
               - type: subnet
-                name: subn4
-
+                name: AzureFirewallSubnet
+              - type: subnet
+                name: AzureBastionSubnet
+  - type: region
+    name: reg3
+    subscriptions:
+      - type: subscription
+        name: vwan-reg3
+        vnets:
+          - type: vnet
+            name: vzp-vwan-reg3-vnet
+            subnets:
+              - type: subnet
+                name: GatewaySubnet
+              - type: subnet
+                name: AzureFirewallSubnet
+              - type: subnet
+                name: AzureBastionSubnet
+  - type: region
+    name: reg4
+    subscriptions:
+      - type: subscription
+        name: vwan-reg4
+        vnets:
+          - type: vnet
+            name: vzp-vwan-reg4-vnet
+            subnets:
+              - type: subnet
+                name: GatewaySubnet
+              - type: subnet
+                name: AzureFirewallSubnet
+              - type: subnet
+                name: AzureBastionSubnet
 addressing:
   default:
     region: equal
@@ -37,8 +70,17 @@ addressing:
     subnet: equal
   specific:
     - type: region
-      name: eastus
-      size: /14
+      name: reg1
+      size: /22
+    - type: region
+      name: reg2
+      size: /22
+    - type: region
+      name: reg3
+      size: /22
+    - type: region
+      name: reg4
+      size: /22
     - type: subnet
       name: subn1
       size: /24
